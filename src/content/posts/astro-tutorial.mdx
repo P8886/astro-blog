@@ -1,0 +1,71 @@
+---
+title: "Astro 入门指南"
+description: "介绍 Astro 框架的基本概念和使用方法。"
+date: 2026-03-24
+tags: ["Astro", "前端", "教程"]
+category: "技术"
+visibility: "public"
+---
+
+# Astro 入门指南
+
+Astro 是一个现代化的静态站点生成器，专为内容驱动的网站而设计。
+
+## 什么是 Astro？
+
+Astro 是一个全新的静态站点构建工具，它的核心理念是"零 JavaScript 默认输出"——这意味着默认情况下，Astro 不会向浏览器发送任何 JavaScript 代码。
+
+## 核心特性
+
+### Islands Architecture（岛屿架构）
+
+Astro 使用"岛屿架构"来实现选择性水合：
+
+```astro
+---
+import StaticHeader from './Header.astro';
+import InteractiveCounter from './Counter.jsx';
+---
+
+<StaticHeader />
+<InteractiveCounter client:visible />
+```
+
+### 内容集合
+
+Astro 的内容集合功能让管理 Markdown 内容变得简单：
+
+```typescript
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    tags: z.array(z.string()),
+  }),
+});
+
+export const collections = { blog };
+```
+
+## 快速开始
+
+创建新的 Astro 项目：
+
+```bash
+npm create astro@latest my-blog
+cd my-blog
+npm run dev
+```
+
+## 为什么选择 Astro？
+
+1. **性能优异** - 默认零 JavaScript，页面加载极快
+2. **开发体验** - 支持 React、Vue、Svelte 等框架
+3. **SEO 友好** - 静态输出，搜索引擎友好
+4. **内容优先** - 专为博客、文档等内容网站设计
+
+## 总结
+
+Astro 是构建内容驱动网站的绝佳选择。如果你正在寻找一个高性能的博客或文档站点解决方案，不妨试试 Astro！

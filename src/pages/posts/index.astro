@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+// 获取公开的文章（排除 private 和 unlisted）
+const allPosts = await getCollection('posts');
+const publicPosts = allPosts
+  .filter((post) => post.data.visibility === 'public' && !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// 获取所有标签
+const allTags = [...new Set(publicPosts.flatMap((post) => post.data.tags))];
+---
+
+<Layout title="文章 - 技术博客" description="浏览所有技术文章">
+  <Header />
+  
+  <main class="flex-1 py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <div class="mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          文章
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400">
+          共 {publicPosts.length} 篇文章
+        </p>
+      </div>
+      
+      <!-- Tags Filter -->
+      {allTags.length > 0 && (
+        <div class="mb-8 flex flex-wrap gap-2">
+          <span class="text-sm text-gray-500 dark:text-gray-400 mr-2">标签筛选：</span>
+          {allTags.map((tag) => (
+            <a
+              href={`/tags/${tag}/`}
+              class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+      
+      <!-- Posts Grid -->
+      {publicPosts.length > 0 ? (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {publicPosts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              tags={post.data.tags}
+              id={post.id}
+              image={post.data.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">暂无文章</h3>
+          <p class="text-gray-500 dark:text-gray-400">请先添加一些内容到 src/content/posts/ 目录</p>
+        </div>
+      )}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

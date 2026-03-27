@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="关于 - 技术博客" description="关于这个技术博客">
+  <Header />
+  
+  <main class="flex-1 py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-8">
+        关于
+      </h1>
+      
+      <div class="prose prose-lg dark:prose-invert">
+        <p>
+          欢迎来到我的技术博客！这里是我记录学习历程、分享技术心得的地方。
+        </p>
+        
+        <h2>关于博客</h2>
+        <p>
+          这个博客使用 <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> 构建，
+          配合 <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind CSS</a> 进行样式设计。
+          部署在 <a href="https://pages.cloudflare.com" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a> 上，
+          实现了零成本、高性能的托管方案。
+        </p>
+        
+        <h2>功能特性</h2>
+        <ul>
+          <li><strong>访问控制</strong>：支持 public/unlisted/private 三种可见性，私密内容需要认证访问</li>
+          <li><strong>暗黑模式</strong>：自动检测系统主题，支持手动切换</li>
+          <li><strong>MDX 支持</strong>：在 Markdown 中使用 React 组件</li>
+          <li><strong>代码高亮</strong>：使用 Expressive Code 提供美观的代码块</li>
+          <li><strong>RSS 订阅</strong>：支持 RSS 订阅公开文章</li>
+          <li><strong>SEO 优化</strong>：完善的 Open Graph 和 Twitter Card 支持</li>
+        </ul>
+        
+        <h2>关于我</h2>
+        <p>
+          我是一名热爱技术的开发者，专注于前端开发、系统架构等领域。
+          在工作之余，我喜欢探索新技术，并将学习心得记录在博客中。
+        </p>
+        
+        <h2>联系方式</h2>
+        <p>
+          如果你对我的文章有任何问题或建议，欢迎通过以下方式联系我：
+        </p>
+        <ul>
+          <li><strong>GitHub</strong>：<a href="https://github.com" target="_blank" rel="noopener noreferrer">github.com</a></li>
+          <li><strong>Email</strong>：<a href="mailto:your@email.com">your@email.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

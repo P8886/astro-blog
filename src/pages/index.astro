@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+// 获取公开的文章（排除 private 和 unlisted）
+const allPosts = await getCollection('posts');
+const publicPosts = allPosts
+  .filter((post) => post.data.visibility === 'public' && !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6);
+---
+
+<Layout title="首页 - 技术博客">
+  <Header />
+  
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-100 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 py-20 sm:py-32">
+      <div class="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,transparent,black)] dark:bg-grid-slate-900"></div>
+      
+      <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-slide-up">
+          <span class="bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-400 dark:to-primary-600 bg-clip-text text-transparent">
+            探索技术
+          </span>
+          <br />
+          <span class="text-gray-900 dark:text-white">分享知识</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 animate-fade-in" style="animation-delay: 0.2s">
+          记录学习历程，分享技术心得。在这里，我分享关于前端开发、系统架构、开源工具等方面的思考与实践。
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style="animation-delay: 0.4s">
+          <a
+            href="/posts"
+            class="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl transition-colors duration-200 shadow-lg shadow-primary-600/25"
+          >
+            浏览文章
+          </a>
+          <a
+            href="/about"
+            class="px-8 py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-colors duration-200"
+          >
+            关于我
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Recent Posts Section -->
+    <section class="py-16 sm:py-24">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-10">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            最新文章
+          </h2>
+          <a
+            href="/posts"
+            class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-1 transition-colors"
+          >
+            查看全部
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+        
+        {publicPosts.length > 0 ? (
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {publicPosts.map((post) => (
+              <PostCard
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.date}
+                tags={post.data.tags}
+                id={post.id}
+                image={post.data.image}
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12">
+            <p class="text-gray-500 dark:text-gray-400">暂无文章，请先添加内容。</p>
+          </div>
+        )}
+      </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900/50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center mb-12">
+          博客特性
+        </h2>
+        
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">极速加载</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
+              基于 Astro 的静态站点生成，实现毫秒级页面加载。
+            </p>
+          </div>
+          
+          <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">访问控制</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
+              支持 public/unlisted/private 三种可见性，私密内容需要认证访问。
+            </p>
+          </div>
+          
+          <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm">
+            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">暗黑模式</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
+              自动检测系统主题，支持手动切换亮色/暗色模式。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .bg-grid-slate-100 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%23e2e8f0' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3C/svg%3E");
+  }
+  
+  .dark .bg-grid-slate-900 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%231f2937' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3C/svg%3E");
+  }
+</style>

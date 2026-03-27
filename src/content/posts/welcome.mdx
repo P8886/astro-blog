@@ -1,0 +1,68 @@
+---
+title: "欢迎来到我的技术博客"
+description: "这是博客的第一篇文章，介绍了这个博客的功能特性。"
+date: 2026-03-25
+tags: ["博客", "Astro", "Web开发"]
+category: "公告"
+visibility: "public"
+---
+
+# 欢迎来到我的技术博客
+
+这是我使用 Astro 构建的全新技术博客。在这篇文章中，我将介绍这个博客的主要功能和特性。
+
+## 功能特性
+
+### 访问控制
+
+这个博客支持三种文章可见性：
+
+- **public**: 公开文章，对所有人可见，会出现在首页和 RSS 订阅中
+- **unlisted**: 隐藏文章，可以通过链接访问，但不会出现在列表中
+- **private**: 私密文章，存储在 `/private/` 路径下，需要 Basic Auth 认证才能访问
+
+### 暗黑模式
+
+博客支持亮色和暗色两种主题：
+
+- 自动检测系统偏好
+- 手动切换主题
+- 设置会保存在本地存储
+
+### MDX 支持
+
+除了标准 Markdown，博客还支持 MDX 格式，可以在文章中使用 React 组件。
+
+### 代码高亮
+
+使用 Expressive Code 提供美观的代码块：
+
+```javascript
+// 示例代码
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet('World');
+```
+
+```python
+# Python 示例
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(fibonacci(10))
+```
+
+## 技术栈
+
+- **框架**: [Astro](https://astro.build)
+- **样式**: [Tailwind CSS](https://tailwindcss.com)
+- **部署**: [Cloudflare Pages](https://pages.cloudflare.com)
+- **代码高亮**: [Expressive Code](https://expressive-code.com)
+
+## 下一步
+
+接下来我会持续更新博客内容，分享技术心得和学习笔记。敬请期待！

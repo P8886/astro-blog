@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const publicPosts = posts.filter(
+    (post) => post.data.visibility === 'public' && !post.data.draft
+  );
+  
+  const tags = [...new Set(publicPosts.flatMap((post) => post.data.tags))];
+  
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: publicPosts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }));
+}
+
+interface Props {
+  posts: Awaited<ReturnType<typeof getCollection<'posts'>>>;
+}
+
+const { posts } = Astro.props;
+const { tag } = Astro.params;
+---
+
+<Layout title={`${tag} - 标签`} description={`标签 ${tag} 下的所有文章`}>
+  <Header />
+  
+  <main class="flex-1 py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <div class="mb-12">
+        <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <a href="/posts" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+            文章
+          </a>
+          <span>/</span>
+          <span>标签</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+          #{tag}
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">
+          共 {posts.length} 篇文章
+        </p>
+      </div>
+      
+      <!-- Posts Grid -->
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            tags={post.data.tags}
+            id={post.id}
+            image={post.data.image}
+          />
+        ))}
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
