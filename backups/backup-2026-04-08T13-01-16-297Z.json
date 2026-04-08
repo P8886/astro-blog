@@ -1,0 +1,86 @@
+{
+  "backupAt": "2026-04-08T13:01:16.296Z",
+  "posts": [
+    {
+      "id": 4,
+      "slug": "test2",
+      "title": "test2",
+      "description": "test2",
+      "content": "test2 test2",
+      "date": "2026-03-27",
+      "tags": [],
+      "visibility": "private",
+      "draft": 0,
+      "deleted": 0,
+      "created_at": "2026-04-08 12:55:21",
+      "updated_at": "2026-04-08 12:55:21"
+    },
+    {
+      "id": 3,
+      "slug": "test",
+      "title": "test",
+      "description": "描述",
+      "content": "测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试 测试",
+      "date": "2026-03-26",
+      "tags": [],
+      "visibility": "unlisted",
+      "draft": 0,
+      "deleted": 0,
+      "created_at": "2026-04-08 12:55:21",
+      "updated_at": "2026-04-08 12:55:21"
+    },
+    {
+      "id": 5,
+      "slug": "welcome",
+      "title": "欢迎来到我的技术博客",
+      "description": "这是博客的第一篇文章，介绍了这个博客的功能特性。",
+      "content": "# 欢迎来到我的技术博客\n\n这是我使用 Astro 构建的全新技术博客。在这篇文章中，我将介绍这个博客的主要功能和特性。\n\n## 功能特性\n\n### 访问控制\n\n这个博客支持三种文章可见性：\n\n- **public**: 公开文章，对所有人可见，会出现在首页和 RSS 订阅中\n- **unlisted**: 隐藏文章，可以通过链接访问，但不会出现在列表中\n- **private**: 私密文章，存储在 `/private/` 路径下，需要 Basic Auth 认证才能访问\n\n### 暗黑模式\n\n博客支持亮色和暗色两种主题：\n\n- 自动检测系统偏好\n- 手动切换主题\n- 设置会保存在本地存储\n\n### MDX 支持\n\n除了标准 Markdown，博客还支持 MDX 格式，可以在文章中使用 React 组件。\n\n### 代码高亮\n\n使用 Expressive Code 提供美观的代码块：\n\n```javascript\n// 示例代码\nfunction greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\ngreet('World');\n```\n\n```python\n# Python 示例\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n - 1) + fibonacci(n - 2)\n\nprint(fibonacci(10))\n```\n\n## 技术栈\n\n- **框架**: [Astro](https://astro.build)\n- **样式**: [Tailwind CSS](https://tailwindcss.com)\n- **部署**: [Cloudflare Pages](https://pages.cloudflare.com)\n- **代码高亮**: [Expressive Code](https://expressive-code.com)\n\n## 下一步\n\n接下来我会持续更新博客内容，分享技术心得和学习笔记。敬请期待！",
+      "date": "2026-03-25",
+      "tags": [
+        "博客",
+        "Astro",
+        "Web开发"
+      ],
+      "visibility": "public",
+      "draft": 0,
+      "deleted": 0,
+      "created_at": "2026-04-08 12:55:21",
+      "updated_at": "2026-04-08 12:55:21"
+    },
+    {
+      "id": 2,
+      "slug": "private-notes",
+      "title": "我的私密笔记",
+      "description": "这是一篇私密文章示例，只有通过认证的用户才能访问。",
+      "content": "# 我的私密笔记\n\n这是一篇私密文章示例。访问这篇文章需要通过 Basic Auth 认证。\n\n## 认证信息\n\n默认用户名: `admin`\n默认密码: `password123`\n\n> **注意**: 部署后请在 Cloudflare Dashboard 的环境变量中设置 `BASIC_AUTH_USER` 和 `BASIC_AUTH_PASS` 来修改默认密码。\n\n## 如何访问私密文章\n\n1. 访问 `/private/private-notes/` 路径\n2. 浏览器会弹出认证对话框\n3. 输入用户名和密码\n4. 认证成功后即可查看内容\n\n## 使用场景\n\n- 个人学习笔记\n- 项目内部文档\n- 敏感信息记录\n- 草稿和未发布内容",
+      "date": "2026-03-25",
+      "tags": [
+        "私密",
+        "笔记"
+      ],
+      "visibility": "private",
+      "draft": 0,
+      "deleted": 0,
+      "created_at": "2026-04-08 12:55:21",
+      "updated_at": "2026-04-08 12:55:21"
+    },
+    {
+      "id": 1,
+      "slug": "astro-tutorial",
+      "title": "Astro 入门指南",
+      "description": "介绍 Astro 框架的基本概念和使用方法。",
+      "content": "# Astro 入门指南\n\nAstro 是一个现代化的静态站点生成器，专为内容驱动的网站而设计。\n\n## 什么是 Astro？\n\nAstro 是一个全新的静态站点构建工具，它的核心理念是\"零 JavaScript 默认输出\"——这意味着默认情况下，Astro 不会向浏览器发送任何 JavaScript 代码。\n\n## 核心特性\n\n### Islands Architecture（岛屿架构）\n\nAstro 使用\"岛屿架构\"来实现选择性水合：\n\n```astro\n---\nimport StaticHeader from './Header.astro';\nimport InteractiveCounter from './Counter.jsx';\n---\n\n<StaticHeader />\n<InteractiveCounter client:visible />\n```\n\n### 内容集合\n\nAstro 的内容集合功能让管理 Markdown 内容变得简单：\n\n```typescript\nimport { defineCollection, z } from 'astro:content';\n\nconst blog = defineCollection({\n  schema: z.object({\n    title: z.string(),\n    date: z.date(),\n    tags: z.array(z.string()),\n  }),\n});\n\nexport const collections = { blog };\n```\n\n## 快速开始\n\n创建新的 Astro 项目：\n\n```bash\nnpm create astro@latest my-blog\ncd my-blog\nnpm run dev\n```\n\n## 为什么选择 Astro？\n\n1. **性能优异** - 默认零 JavaScript，页面加载极快\n2. **开发体验** - 支持 React、Vue、Svelte 等框架\n3. **SEO 友好** - 静态输出，搜索引擎友好\n4. **内容优先** - 专为博客、文档等内容网站设计\n\n## 总结\n\nAstro 是构建内容驱动网站的绝佳选择。如果你正在寻找一个高性能的博客或文档站点解决方案，不妨试试 Astro！",
+      "date": "2026-03-24",
+      "tags": [
+        "Astro",
+        "前端",
+        "教程"
+      ],
+      "visibility": "public",
+      "draft": 0,
+      "deleted": 0,
+      "created_at": "2026-04-08 12:55:21",
+      "updated_at": "2026-04-08 12:55:21"
+    }
+  ]
+}
